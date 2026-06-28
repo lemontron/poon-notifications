@@ -11,9 +11,10 @@ let configuredFingerprint;
 
 const getSettingsWebPushConfig = () => {
 	const config = Meteor.settings?.packages?.poon?.webPush;
-	if (!config) return null;
+	if (!config?.publicKey || !config?.privateKey) return null;
 	return {
-		'subject': config.subject || `mailto:${config.email}`,
+		'service': PUSH_SERVICE,
+		'subject': config.subject || (config.email ? `mailto:${config.email}` : DEFAULT_SUBJECT),
 		'publicKey': config.publicKey,
 		'privateKey': config.privateKey,
 	};
@@ -22,6 +23,14 @@ const getSettingsWebPushConfig = () => {
 const ensureServiceWebPushConfigAsync = async () => {
 	const existing = await ServiceConfiguration.configurations.findOneAsync({'service': PUSH_SERVICE});
 	if (existing) return existing;
+
+	const settingsConfig = getSettingsWebPushConfig();
+	if (settingsConfig) {
+		await ServiceConfiguration.configurations.upsertAsync({'service': PUSH_SERVICE}, {
+			$setOnInsert: settingsConfig,
+		});
+		return ServiceConfiguration.configurations.findOneAsync({'service': PUSH_SERVICE});
+	}
 
 	const keys = webPush.generateVAPIDKeys();
 	await ServiceConfiguration.configurations.upsertAsync({'service': PUSH_SERVICE}, {
@@ -36,7 +45,7 @@ const ensureServiceWebPushConfigAsync = async () => {
 };
 
 const getWebPushConfigAsync = async () => {
-	return getSettingsWebPushConfig() || ensureServiceWebPushConfigAsync();
+	return ensureServiceWebPushConfigAsync();
 };
 
 const configureWebPushAsync = async () => {

@@ -187,36 +187,18 @@ If no push send succeeds for a user notification, SMS fallback is attempted imme
 
 By default, the package creates VAPID keys in `ServiceConfiguration.configurations` with service `poon-web-push`.
 
-For stable keys across environments or deployments, provide settings:
+For stable keys across environments or deployments, manage this record directly in `ServiceConfiguration.configurations`.
 
-```json
-{
-	"packages": {
-		"poon": {
-			"webPush": {
-				"email": "admin@example.com",
-				"publicKey": "B...",
-				"privateKey": "..."
-			}
-		}
-	}
-}
-```
-
-You can also provide `subject` instead of `email`:
-
-```json
-{
-	"packages": {
-		"poon": {
-			"webPush": {
-				"subject": "mailto:admin@example.com",
-				"publicKey": "B...",
-				"privateKey": "..."
-			}
-		}
-	}
-}
+```javascript
+await ServiceConfiguration.configurations.upsertAsync({
+	'service': 'poon-web-push',
+}, {
+	$set: {
+		'subject': 'mailto:admin@example.com',
+		'publicKey': 'B...',
+		'privateKey': '...',
+	},
+});
 ```
 
 ### SMS Fallback
