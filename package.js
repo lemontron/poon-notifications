@@ -22,6 +22,7 @@ Package.onUse(api => {
 	api.use('poon-api', 'server');
 	api.use('poon-devices');
 	api.use('poon-jobs', 'server');
+	api.use('poon-router', 'client');
 	api.mainModule('client.js', 'client');
 	api.mainModule('server.js', 'server');
 	api.addAssets('assets/service-worker.js', 'server');
