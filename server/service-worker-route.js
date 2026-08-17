@@ -5,6 +5,7 @@ WebApp.rawConnectHandlers.use('/service-worker.js', async (req, res) => {
 	res.writeHead(200, {
 		'content-type': 'application/javascript; charset=utf-8',
 		'cache-control': 'no-cache',
+		'service-worker-allowed': '/',
 	});
 	res.end(serviceWorker);
 });
