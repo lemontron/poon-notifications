@@ -1,6 +1,6 @@
 const CACHE_NAME = 'gohano-app';
 const SHELL_URL = '/__gohano_app_shell__';
-const STATIC_URLS = ['/dashboard.json', '/gohano.svg', '/icons/icon.png'];
+const STATIC_URLS = ['/manifest.json', '/gohano.svg', '/icons/icon.png'];
 const STATIC_DESTINATIONS = new Set(['font', 'image', 'manifest', 'script', 'style']);
 
 const getShellUrls = html => {
