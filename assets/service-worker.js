@@ -1,7 +1,7 @@
 const CACHE_NAME = 'gohano-app';
 const SHELL_URL = '/__gohano_app_shell__';
 const STATIC_URLS = ['/manifest.json', '/gohano.svg', '/icons/icon.png'];
-const STATIC_DESTINATIONS = new Set(['font', 'image', 'manifest', 'script', 'style']);
+const STATIC_DESTINATIONS = new Set(['font', 'image', 'manifest', 'script', 'style', 'audio']);
 
 const getShellUrls = html => {
 	const urls = [...html.matchAll(/(?:src|href)=["']([^"']+)["']/g)].map(match => new URL(match[1], self.location.origin));
@@ -46,7 +46,8 @@ self.addEventListener('fetch', event => {
 		const response = fetch(request);
 		event.waitUntil(response.then(result => {
 			if (result.ok && result.headers.get('content-type')?.includes('text/html')) return cacheShell(result.clone());
-		}).catch(() => {}));
+		}).catch(() => {
+		}));
 		event.respondWith(response.catch(() => caches.match(SHELL_URL)));
 		return;
 	}
