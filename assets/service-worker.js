@@ -41,6 +41,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
 	const {request} = event;
 	if (request.method !== 'GET') return;
+	if (request.headers.has('range')) return;
 
 	if (request.mode === 'navigate') {
 		const response = fetch(request);
@@ -59,7 +60,7 @@ self.addEventListener('fetch', event => {
 		const cached = await caches.match(request);
 		if (cached) return cached;
 		const response = await fetch(request);
-		if (response.ok) await (await caches.open(CACHE_NAME)).put(request, response.clone());
+		if (response.status === 200) await (await caches.open(CACHE_NAME)).put(request, response.clone());
 		return response;
 	})());
 });
