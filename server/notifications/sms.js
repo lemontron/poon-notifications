@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { CHANNEL_SMS } from './constants';
 
-const callTwilioSmsAsync = async (phone, body) => {
+export const sendSmsAsync = async (phone, body) => {
 	const {accountSid, authToken, from} = Meteor.settings.twilio;
 	const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
 		'method': 'POST',
@@ -32,7 +32,7 @@ export const sendSmsNotificationAsync = async notification => {
 		notification.url,
 	].filter(Boolean).join('\n');
 
-	const result = await callTwilioSmsAsync(user.profile.phone, body);
+	const result = await sendSmsAsync(user.profile.phone, body);
 	return {
 		'channel': CHANNEL_SMS,
 		'sid': result.sid,

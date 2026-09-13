@@ -7,4 +7,5 @@ import './server/notifications/notifications';
 import './server/service-worker-route';
 
 export { Notifications } from './db.js';
+export { sendSmsAsync } from './server/notifications/sms';
 export { sendNotificationAsync, sendNotificationToRoleAsync } from './server/notifications/notifications';
