@@ -8,7 +8,7 @@ Push notifications, in-app notification toasts, notification history, delivery r
 meteor add poon-notifications
 ```
 
-This package depends on `poon`, `poon-api`, `poon-devices`, `poon-jobs`, and `poon-router`. It also registers `/service-worker.js` from the package asset bundle.
+This package depends on `poon`, `poon-api`, `poon-devices`, `poon-jobs`, and `poon-router`. It adds notification handlers to Poon's service worker.
 
 ## What It Does
 
@@ -23,7 +23,7 @@ This package depends on `poon`, `poon-api`, `poon-devices`, `poon-jobs`, and `po
 
 ## Client Setup
 
-The package registers the service worker automatically on the client. To let a user opt into push notifications, call `setupPush()` from a UI action.
+Poon registers the service worker automatically. To let a user opt into push notifications, call `setupPush()` from a UI action.
 
 ```javascript
 import { setupPush } from 'meteor/poon-notifications';
@@ -243,13 +243,7 @@ Meteor.subscribe('NotificationsDevice', deviceId);
 
 ## Service Worker
 
-The package serves its service worker at:
-
-```text
-/service-worker.js
-```
-
-The service worker:
+Poon owns the root service worker and its offline cache. Installing this package adds handlers that:
 
 - Handles incoming push events.
 - Sends receipt callbacks.
@@ -257,7 +251,7 @@ The service worker:
 - Opens or focuses the app when a notification is clicked.
 - Passes the clicked app path back to the client router.
 
-Only one service worker can control a scope. If an app has its own root service worker, merge this package's push and notification-click handlers into that worker.
+Apps without `poon-notifications` receive no notification handlers.
 
 ## Testing
 

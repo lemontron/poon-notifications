@@ -4,7 +4,7 @@ import './server/notifications/startup';
 import './server/notifications/publications';
 import './server/notifications/job';
 import './server/notifications/notifications';
-import './server/service-worker-route';
+import './server/service-worker';
 
 export { Notifications } from './db.js';
 export { sendSmsAsync } from './server/notifications/sms';

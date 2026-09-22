@@ -25,5 +25,5 @@ Package.onUse(api => {
 	api.use('poon-router', 'client');
 	api.mainModule('client.js', 'client');
 	api.mainModule('server.js', 'server');
-	api.addAssets('assets/service-worker.js', 'server');
+	api.addAssets('assets/notification-service-worker.js', 'server');
 });

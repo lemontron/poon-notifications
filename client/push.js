@@ -14,13 +14,13 @@ export const setupPush = async () => {
 		'data': {'deviceId': deviceId, 'endpoint': existing},
 	});
 
-	const ok = await showAlert({
-		'title': 'Push Notifications',
+	const ok = await showAlert('Push Notifications', {
 		'message': 'Enable notifications?',
-	}, [
-		{'_id': 'cancel', 'name': 'No'},
-		{'_id': 'enable', 'name': 'Enable'},
-	]);
+		'options': [
+			{'_id': 'cancel', 'name': 'No'},
+			{'_id': 'enable', 'name': 'Enable'},
+		],
+	});
 	if (ok === 'enable') {
 		const status = await pushNotifications.askAsync({
 			'userVisibleOnly': true,
