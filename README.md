@@ -87,13 +87,13 @@ Device-targeted notifications do not use SMS fallback because they are not tied 
 
 ### Send To A Role
 
-Use `sendNotificationToRoleAsync(role, opts)` when users have a `roles` array on their Meteor user document.
+Use `sendNotificationToRoleAsync(storeId, role, opts)` to notify users with a role at one store.
 
 ```javascript
 import { sendNotificationToRoleAsync } from 'meteor/poon-notifications';
 import { ADMIN } from '/imports/constants';
 
-await sendNotificationToRoleAsync(ADMIN, {
+await sendNotificationToRoleAsync(storeId, ADMIN, {
 	'title': 'Clocked In',
 	'message': 'Sam clocked in',
 	'url': '/schedule',
@@ -118,9 +118,9 @@ Server only.
 
 If both `userIds` and `deviceIds` are empty, the function returns without doing work.
 
-### `sendNotificationToRoleAsync(role, opts)`
+### `sendNotificationToRoleAsync(storeId, role, opts)`
 
-Server only. Finds users where `roles` contains `role`, then calls `sendNotificationAsync({...opts, userIds})`.
+Server only. Finds users whose matching `stores` entry contains `role`, then calls `sendNotificationAsync({...opts, userIds})`.
 
 ### `setupPush()`
 
