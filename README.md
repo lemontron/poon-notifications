@@ -85,12 +85,6 @@ await sendNotificationAsync({
 
 Device-targeted notifications do not use SMS fallback because they are not tied to a user phone number.
 
-### App-Specific Recipients
-
-Resolve recipients from your app's schema before calling `sendNotificationAsync({userIds, ...options})`. Store membership and role lookups belong in the app.
-
-Gohano's `sendNotificationToRoleAsync(storeId, role, opts)` lives in `/server/imports/notifications` in the Gohano repository. It is not exported by `meteor/poon-notifications`.
-
 ## API
 
 ### `sendNotificationAsync(options)`
