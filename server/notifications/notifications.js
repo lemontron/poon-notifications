@@ -97,15 +97,6 @@ export const sendNotificationAsync = async ({
 	]);
 };
 
-// Helper
-export const sendNotificationToRoleAsync = async (storeId, role, opts) => {
-	const users = await Meteor.users.find({
-		'stores': {$elemMatch: {'_id': storeId, 'roles': role}},
-	}, {fields: {'_id': 1}}).fetchAsync();
-	const userIds = users.map(u => u._id);
-	return sendNotificationAsync({...opts, userIds});
-};
-
 Meteor.methods({
 	'TestPushNotifications': async function() {
 		await sendNotificationAsync({

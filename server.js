@@ -8,4 +8,4 @@ import './server/service-worker';
 
 export { Notifications } from './db.js';
 export { sendSmsAsync } from './server/notifications/sms';
-export { sendNotificationAsync, sendNotificationToRoleAsync } from './server/notifications/notifications';
+export { sendNotificationAsync } from './server/notifications/notifications';

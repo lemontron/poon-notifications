@@ -85,20 +85,11 @@ await sendNotificationAsync({
 
 Device-targeted notifications do not use SMS fallback because they are not tied to a user phone number.
 
-### Send To A Role
+### App-Specific Recipients
 
-Use `sendNotificationToRoleAsync(storeId, role, opts)` to notify users with a role at one store.
+Resolve recipients from your app's schema before calling `sendNotificationAsync({userIds, ...options})`. Store membership and role lookups belong in the app.
 
-```javascript
-import { sendNotificationToRoleAsync } from 'meteor/poon-notifications';
-import { ADMIN } from '/imports/constants';
-
-await sendNotificationToRoleAsync(storeId, ADMIN, {
-	'title': 'Clocked In',
-	'message': 'Sam clocked in',
-	'url': '/schedule',
-});
-```
+Gohano's `sendNotificationToRoleAsync(storeId, role, opts)` lives in `/server/imports/notifications` in the Gohano repository. It is not exported by `meteor/poon-notifications`.
 
 ## API
 
@@ -117,10 +108,6 @@ Server only.
 | `urgency` | `'high'` | Web Push urgency passed to `web-push`. |
 
 If both `userIds` and `deviceIds` are empty, the function returns without doing work.
-
-### `sendNotificationToRoleAsync(storeId, role, opts)`
-
-Server only. Finds users whose matching `stores` entry contains `role`, then calls `sendNotificationAsync({...opts, userIds})`.
 
 ### `setupPush()`
 
