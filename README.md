@@ -224,7 +224,7 @@ Meteor.subscribe('NotificationsDevice', deviceId);
 
 ## Service Worker
 
-Poon owns the root service worker and its offline cache. Installing this package adds handlers that:
+Poon owns the root service worker. Installing this package adds handlers that:
 
 - Handles incoming push events.
 - Sends receipt callbacks.
