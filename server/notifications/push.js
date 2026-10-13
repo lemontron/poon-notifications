@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ServiceConfiguration } from 'meteor/service-configuration';
-import { Devices } from 'meteor/poon-devices';
 import webPush from 'web-push';
 
 const PUSH_SERVICE = 'poon-web-push';
@@ -94,7 +93,7 @@ Meteor.methods({
 		check(d, {deviceId: String, endpoint: Object});
 		check(d.endpoint.endpoint, String);
 
-		await Devices.updateAsync(d.deviceId, {
+		await Mongo.getCollection('Devices').updateAsync(d.deviceId, {
 			$set: {'endpoint': d.endpoint},
 		});
 	},

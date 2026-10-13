@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { Devices } from 'meteor/poon-devices';
 import { Notifications } from '../../db';
 import { sendDevicePushNotificationAsync } from './push';
 import { sendSmsNotificationAsync } from './sms';
@@ -15,7 +14,7 @@ const carefullySendPushNotificationsAsync = async notification => {
 	if (notification.deviceId) query._id = notification.deviceId;
 	if (notification.userId) query.userId = notification.userId;
 
-	const devices = await Devices.find(query).fetchAsync();
+	const devices = await Mongo.getCollection('Devices').find(query).fetchAsync();
 
 	const results = await Promise.allSettled(devices.map(device => {
 		return sendDevicePushNotificationAsync(device, notification);
