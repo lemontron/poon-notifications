@@ -14,10 +14,9 @@ export const setupPush = async () => {
 		'data': {'deviceId': deviceId, 'endpoint': existing},
 	});
 
-	const ok = await showAlert('Push Notifications', {
-		'message': 'Enable notifications?',
+	const ok = await showAlert('Enable notifications?', {
 		'options': [
-			{'_id': 'cancel', 'name': 'No'},
+			{'_id': 'cancel', 'name': 'Cancel', borderless: true},
 			{'_id': 'enable', 'name': 'Enable'},
 		],
 	});
