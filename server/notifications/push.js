@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ServiceConfiguration } from 'meteor/service-configuration';
-import webPush from 'web-push';
+
+const webPush = Npm.require('web-push');
 
 const PUSH_SERVICE = 'poon-web-push';
 const DEFAULT_SUBJECT = 'mailto:admin@poon.app';

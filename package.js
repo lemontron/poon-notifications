@@ -5,7 +5,7 @@ Package.describe({
 });
 
 Npm.depends({
-	'web-push': '3.6.7',
+	'web-push': '4.0.0',
 });
 
 Package.onUse(api => {
